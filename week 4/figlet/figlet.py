@@ -1,28 +1,35 @@
 import sys
 import random
+import argparse
 from pyfiglet import Figlet
+from typing import NoReturn
 
 
-# checks are kind of brittle
-# would be more idiomatic to use std library argparse from python
-def main():
-    # no cli args - output text in random font
-    if len(sys.argv) == 1:
-        text = input("Input: ")
-
-        print_figlet_text(text, None)
-    # 2 cli args - output text in given font
-    elif len(sys.argv) == 3:
-        option, font = sys.argv[1:]
-
-        # validate valid font option
-        if option != "-f" and option != "--font":
-            sys.exit("Invalid usage")
-
-        text = input("Input: ")
-        print_figlet_text(text, font)
-    else:
+# override argparser error method using a child class of
+# ArgumentParser
+class CustomArgumentParser(argparse.ArgumentParser):
+    # override error so we can exit with "invalid usage" for the program
+    # which is what solution requires
+    def error(self, message: str) -> NoReturn:
         sys.exit("Invalid usage")
+
+
+def main():
+    # init arg parser using child class
+    # this will allow us to exit with custom error method
+    # if invalid option provided
+    parser = CustomArgumentParser()
+    # register flag
+    parser.add_argument("-f", "--font")
+    # parse args
+    args = parser.parse_args()
+
+    if args.font:
+        text = input("Input: ")
+        print_figlet_text(text, args.font)
+    else:
+        text = input("Input: ")
+        print_figlet_text(text, None)
 
 
 def print_figlet_text(

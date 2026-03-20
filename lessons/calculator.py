@@ -3,8 +3,9 @@ def main():
     print("x squared is", square(x))
 
 
-def square(num):
+def square(num: int):
     return num * num
 
 
-main()
+if __name__ == "__main__":
+    main()

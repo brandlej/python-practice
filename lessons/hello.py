@@ -2,6 +2,11 @@ def main():
     x = get_int("What's x? ")
     print(f"x is {x}")
 
+
+def hello(to: str = "world"):
+    return f"hello, {to}"
+
+
 def get_int(prompt: str):
     while True:
         try:
@@ -10,7 +15,9 @@ def get_int(prompt: str):
             # print("x is not an integer")
             pass
 
-main()
+
+if __name__ == "__main__":
+    main()
 
 # SyntaxError - error with syntax
 # ValueError - error with a given value

@@ -1,15 +1,18 @@
 def main():
-    print("Output: ", remove_vowels(input("Input: ").strip()))
+    word = input("Input: ")
+    print("Output: ", shorten(word))
 
-def remove_vowels(text: str):
-    formatted_text = ""
-    vowels = ['a', 'e', 'i', 'o', 'u']
-    for char in text:
-        if(char.lower() in vowels):
+
+def shorten(word: str):
+    shortened_word = ""
+
+    for char in word:
+        if char.lower() in ["a", "e", "i", "o", "u"]:
             continue
-        formatted_text += char
-    
-    return formatted_text
+        shortened_word += char
+
+    return shortened_word
 
 
-main()
+if __name__ == "__main__":
+    main()

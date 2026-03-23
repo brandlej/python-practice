@@ -1,17 +1,20 @@
 def main():
     percent = get_percent()
-    print_gauge_status(percent)
+    gauge(percent)
 
-def print_gauge_status(percent: int):
+
+def gauge(percent: int):
     if percent <= 1:
-        print("E")
+        return "E"
     elif percent >= 99:
-        print("F")
+        return "F"
     else:
-        print(f"{percent}%")
+        return f"{percent}%"
+
 
 def compute_percent(x: int, y: int):
     return round((x / y) * 100)
+
 
 def get_percent():
     while True:
@@ -25,9 +28,13 @@ def get_percent():
 
             if x > y:
                 continue
-            
+
             return compute_percent(x, y)
-        except (ValueError, ZeroDivisionError): # more pythonic to catch zero division here
+        except (
+            ValueError,
+            ZeroDivisionError,
+        ):  # more pythonic to catch zero division here
             continue
+
 
 main()

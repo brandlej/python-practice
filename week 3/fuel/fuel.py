@@ -1,6 +1,14 @@
 def main():
-    percent = get_percent()
-    gauge(percent)
+    while True:
+        try:
+            percent = convert(input("Fraction: "))
+            print(gauge(percent))
+            break
+        except (
+            ValueError,
+            ZeroDivisionError,
+        ):
+            continue
 
 
 def gauge(percent: int):
@@ -12,29 +20,23 @@ def gauge(percent: int):
         return f"{percent}%"
 
 
-def compute_percent(x: int, y: int):
+def convert(fraction: str):
+    num, denom = fraction.split("/")
+    # python will raise naturally here which is what we want
+    # more pythonic
+    x = int(num)
+    y = int(denom)
+
+    # if y is zero raise a zero div error
+    if y == 0:
+        raise ZeroDivisionError
+
+    # if x > y raise a value error
+    if x > y:
+        raise ValueError
+
     return round((x / y) * 100)
 
 
-def get_percent():
-    while True:
-        try:
-            fraction = input("Fraction: ")
-            num, denom = fraction.split("/")
-            # More pythonic to let attempt and let python throw and catch below
-            # rather than pre-validate
-            x = int(num)
-            y = int(denom)
-
-            if x > y:
-                continue
-
-            return compute_percent(x, y)
-        except (
-            ValueError,
-            ZeroDivisionError,
-        ):  # more pythonic to catch zero division here
-            continue
-
-
-main()
+if __name__ == "__main__":
+    main()

@@ -1,4 +1,6 @@
 def main():
+    # This structure separates logic from I/O and allows
+    # us to unit test helper functions
     while True:
         try:
             percent = convert(input("Fraction: "))
